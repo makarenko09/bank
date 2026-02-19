@@ -19,6 +19,10 @@ bundles = {}
 		[libraries.testcontainers-testcontainers-postgresql.version]
 			ref = "testcontainers"
 
+	[libraries.spring-boot-starter-oauth2-resource-server]
+		name = "spring-boot-starter-oauth2-resource-server"
+		group = "org.springframework.boot"
+
 	[libraries.spring-boot-starter-test]
 		name = "spring-boot-starter-test"
 		group = "org.springframework.boot"
@@ -30,12 +34,20 @@ bundles = {}
 		[libraries.reflections.version]
 			ref = "reflections"
 
+	[libraries.spring-boot-starter-oauth2-client]
+		name = "spring-boot-starter-oauth2-client"
+		group = "org.springframework.boot"
+
 	[libraries.spring-boot-dependencies]
 		name = "spring-boot-dependencies"
 		group = "org.springframework.boot"
 
 		[libraries.spring-boot-dependencies.version]
 			ref = "spring-boot"
+
+	[libraries.spring-boot-starter-security-test]
+		name = "spring-boot-starter-security-test"
+		group = "org.springframework.boot"
 
 	[libraries.springdoc-openapi-starter-webmvc-api]
 		name = "springdoc-openapi-starter-webmvc-api"
@@ -85,6 +97,14 @@ bundles = {}
 
 	[libraries.spring-boot-starter-webmvc]
 		name = "spring-boot-starter-webmvc"
+		group = "org.springframework.boot"
+
+	[libraries.spring-boot-starter-restclient]
+		name = "spring-boot-starter-restclient"
+		group = "org.springframework.boot"
+
+	[libraries.spring-boot-starter-security]
+		name = "spring-boot-starter-security"
 		group = "org.springframework.boot"
 
 	[libraries.commons-lang3]

@@ -1,0 +1,16 @@
+{
+  "module" : "spring-boot-oauth2",
+  "date" : "2026-02-19T20:39:42.856052934Z",
+  "properties" : {
+    "packageName" : "com.example.bankcards",
+    "projectName" : "PaatoM Bank_REST Repository",
+    "baseName" : "bank",
+    "nodePackageManager" : "npm",
+    "endOfLine" : "lf",
+    "indentSize" : 2,
+    "springConfigurationFormat" : "yaml",
+    "serverPort" : 8080,
+    "keycloakClientScopeName" : "account-access",
+    "keycloakRealmName" : "seed4j"
+  }
+}

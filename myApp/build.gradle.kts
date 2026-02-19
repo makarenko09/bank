@@ -48,6 +48,10 @@ dependencies {
   implementation(libs.spring.boot.starter.webmvc)
   implementation(libs.springdoc.openapi.starter.webmvc.ui)
   implementation(libs.springdoc.openapi.starter.webmvc.api)
+  implementation(libs.spring.boot.starter.security)
+  implementation(libs.spring.boot.starter.restclient)
+  implementation(libs.spring.boot.starter.oauth2.client)
+  implementation(libs.spring.boot.starter.oauth2.resource.server)
   // seed4j-needle-gradle-implementation-dependencies
   // seed4j-needle-gradle-compile-dependencies
   runtimeOnly(libs.postgresql)
@@ -56,6 +60,7 @@ dependencies {
   testImplementation(libs.testcontainers.testcontainers.postgresql)
   testImplementation(libs.reflections)
   testImplementation(libs.spring.boot.starter.webmvc.test)
+  testImplementation(libs.spring.boot.starter.security.test)
 
   // seed4j-needle-gradle-test-dependencies
 }

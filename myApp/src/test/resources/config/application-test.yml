@@ -10,6 +10,13 @@ spring:
     contexts: test
   main:
     banner-mode: 'off'
+    allow-bean-definition-overriding: true
+  security:
+    oauth2:
+      client:
+        provider:
+          oidc:
+            issuer-uri: http://DO_NOT_CALL:9080/realms/seed4j
 logging:
   config: classpath:logback.xml
 server:

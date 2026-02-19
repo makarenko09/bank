@@ -39,6 +39,17 @@ spring:
     name: bank
   jackson:
     default-property-inclusion: non_absent
+  security:
+    oauth2:
+      client:
+        provider:
+          oidc:
+            issuer-uri: http://localhost:9080/realms/seed4j
+        registration:
+          oidc:
+            client-id: web_app
+            client-secret: web_app
+            scope: openid,profile,email
 logging:
   level:
     com:
@@ -52,3 +63,7 @@ springdoc:
     operationsSorter: alpha
     tagsSorter: alpha
     tryItOutEnabled: true
+application:
+  security:
+    oauth2:
+      audience: account,api://default
