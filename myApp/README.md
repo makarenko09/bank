@@ -29,5 +29,7 @@ npm install
 ## Documentation
 
 - [Hexagonal architecture](documentation/hexagonal-architecture.md)
+- [Package types](documentation/package-types.md)
+- [Assertions](documentation/assertions.md)
 
 <!-- seed4j-needle-documentation -->
