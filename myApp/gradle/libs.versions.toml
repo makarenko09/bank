@@ -18,6 +18,10 @@ bundles = {}
 		[libraries.testcontainers-testcontainers-postgresql.version]
 			ref = "testcontainers"
 
+	[libraries.spring-boot-starter-data-jpa]
+		name = "spring-boot-starter-data-jpa"
+		group = "org.springframework.boot"
+
 	[libraries.postgresql]
 		name = "postgresql"
 		group = "org.postgresql"
