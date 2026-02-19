@@ -34,3 +34,10 @@ spring:
           in_clause_parameter_padding: true
   liquibase:
     change-log: classpath:config/liquibase/master.xml
+  application:
+    name: bank
+logging:
+  level:
+    com:
+      example:
+        bankcards: INFO

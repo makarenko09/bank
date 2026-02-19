@@ -2,6 +2,7 @@
 
 plugins {
   java
+  alias(libs.plugins.spring.boot)
   // seed4j-needle-gradle-plugins
 }
 
@@ -11,6 +12,12 @@ java {
   toolchain {
     languageVersion = JavaLanguageVersion.of(25)
   }
+}
+
+defaultTasks("bootRun")
+
+springBoot {
+  mainClass = "com.example.bankcards.BankApp"
 }
 
 // seed4j-needle-gradle-plugins-configurations
@@ -30,13 +37,15 @@ val profiles = (project.findProperty("profiles") as String? ?: "")
 // seed4j-needle-profile-activation
 
 dependencies {
+  implementation(platform(libs.spring.boot.dependencies))
+  implementation(libs.spring.boot.starter)
+  implementation(libs.spring.boot.configuration.processor)
+  implementation(libs.commons.lang3)
   // seed4j-needle-gradle-implementation-dependencies
   // seed4j-needle-gradle-compile-dependencies
   // seed4j-needle-gradle-runtime-dependencies
-  testImplementation(libs.junit.engine)
-  testImplementation(libs.junit.params)
-  testImplementation(libs.assertj)
-  testImplementation(libs.mockito)
+  testImplementation(libs.spring.boot.starter.test)
+
   // seed4j-needle-gradle-test-dependencies
 }
 

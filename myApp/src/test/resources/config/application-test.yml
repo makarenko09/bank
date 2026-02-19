@@ -8,3 +8,7 @@ spring:
     username: bank
   liquibase:
     contexts: test
+  main:
+    banner-mode: 'off'
+logging:
+  config: classpath:logback.xml
