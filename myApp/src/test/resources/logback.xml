@@ -20,5 +20,6 @@
   <logger name="LiquibaseSchemaResolver" level="INFO" />
   <logger name="com.zaxxer.hikari" level="WARN" />
   <logger name="org.springframework.web" level="ERROR" />
+  <logger name="io.swagger.v3.core.converter.ModelConverterContextImpl" level="WARN" />
   <!-- seed4j-needle-logback-add-log -->
 </configuration>

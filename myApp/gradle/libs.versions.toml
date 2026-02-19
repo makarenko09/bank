@@ -4,6 +4,7 @@ bundles = {}
 	testcontainers = "2.0.3"
 	reflections = "0.10.2"
 	spring-boot = "4.0.2"
+	springdoc-openapi = "3.0.1"
 
 	[plugins.spring-boot]
 		id = "org.springframework.boot"
@@ -36,6 +37,13 @@ bundles = {}
 		[libraries.spring-boot-dependencies.version]
 			ref = "spring-boot"
 
+	[libraries.springdoc-openapi-starter-webmvc-api]
+		name = "springdoc-openapi-starter-webmvc-api"
+		group = "org.springdoc"
+
+		[libraries.springdoc-openapi-starter-webmvc-api.version]
+			ref = "springdoc-openapi"
+
 	[libraries.hikariCP]
 		name = "HikariCP"
 		group = "com.zaxxer"
@@ -43,6 +51,13 @@ bundles = {}
 	[libraries.spring-boot-starter-liquibase]
 		name = "spring-boot-starter-liquibase"
 		group = "org.springframework.boot"
+
+	[libraries.springdoc-openapi-starter-webmvc-ui]
+		name = "springdoc-openapi-starter-webmvc-ui"
+		group = "org.springdoc"
+
+		[libraries.springdoc-openapi-starter-webmvc-ui.version]
+			ref = "springdoc-openapi"
 
 	[libraries.spring-boot-starter]
 		name = "spring-boot-starter"

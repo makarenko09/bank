@@ -46,6 +46,8 @@ dependencies {
   implementation(libs.spring.boot.starter.liquibase)
   implementation(libs.spring.boot.starter.validation)
   implementation(libs.spring.boot.starter.webmvc)
+  implementation(libs.springdoc.openapi.starter.webmvc.ui)
+  implementation(libs.springdoc.openapi.starter.webmvc.api)
   // seed4j-needle-gradle-implementation-dependencies
   // seed4j-needle-gradle-compile-dependencies
   runtimeOnly(libs.postgresql)
