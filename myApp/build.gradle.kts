@@ -37,7 +37,7 @@ dependencies {
   // seed4j-needle-gradle-compile-dependencies
   runtimeOnly(libs.postgresql)
   // seed4j-needle-gradle-runtime-dependencies
-  testImplementation(libs.junit.engine)
+
   testImplementation(libs.junit.params)
   testImplementation(libs.assertj)
   testImplementation(libs.mockito)
