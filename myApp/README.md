@@ -1,4 +1,4 @@
-# Paatom Bank_REST
+# PaatoM Bank_REST Repository
 
 ## Prerequisites
 

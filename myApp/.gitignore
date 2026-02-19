@@ -133,8 +133,3 @@ Desktop.ini
 # Sonar
 ######################
 .scannerwork/
-# Gradle
-/.gradle/
-/build/
-/buildSrc/.gradle/
-/buildSrc/build/
