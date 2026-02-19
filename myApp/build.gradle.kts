@@ -44,12 +44,16 @@ dependencies {
   implementation(libs.hikariCP)
   implementation(libs.spring.boot.starter.data.jpa)
   implementation(libs.spring.boot.starter.liquibase)
+  implementation(libs.spring.boot.starter.validation)
+  implementation(libs.spring.boot.starter.webmvc)
   // seed4j-needle-gradle-implementation-dependencies
   // seed4j-needle-gradle-compile-dependencies
   runtimeOnly(libs.postgresql)
   // seed4j-needle-gradle-runtime-dependencies
   testImplementation(libs.spring.boot.starter.test)
   testImplementation(libs.testcontainers.testcontainers.postgresql)
+  testImplementation(libs.reflections)
+  testImplementation(libs.spring.boot.starter.webmvc.test)
 
   // seed4j-needle-gradle-test-dependencies
 }

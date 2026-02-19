@@ -12,3 +12,5 @@ spring:
     banner-mode: 'off'
 logging:
   config: classpath:logback.xml
+server:
+  port: 0

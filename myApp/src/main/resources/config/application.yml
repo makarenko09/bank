@@ -36,8 +36,12 @@ spring:
     change-log: classpath:config/liquibase/master.xml
   application:
     name: bank
+  jackson:
+    default-property-inclusion: non_absent
 logging:
   level:
     com:
       example:
         bankcards: INFO
+server:
+  port: 8080
