@@ -1,0 +1,12 @@
+{
+  "module" : "init",
+  "date" : "2026-02-19T16:37:29.843079138Z",
+  "properties" : {
+    "packageName" : "com.example.backcards",
+    "projectName" : "Paatom Bank_REST",
+    "nodePackageManager" : "npm",
+    "indentSize" : 2,
+    "baseName" : "bank",
+    "endOfLine" : "lf"
+  }
+}
