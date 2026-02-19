@@ -34,5 +34,7 @@ docker compose -f src/main/docker/postgresql.yml up -d
 
 - [Hexagonal architecture](documentation/hexagonal-architecture.md)
 - [PostgreSQL](documentation/postgresql.md)
+- [Package types](documentation/package-types.md)
+- [Assertions](documentation/assertions.md)
 
 <!-- seed4j-needle-documentation -->
