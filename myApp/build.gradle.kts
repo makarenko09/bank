@@ -41,10 +41,13 @@ dependencies {
   implementation(libs.spring.boot.starter)
   implementation(libs.spring.boot.configuration.processor)
   implementation(libs.commons.lang3)
+  implementation(libs.hikariCP)
   // seed4j-needle-gradle-implementation-dependencies
   // seed4j-needle-gradle-compile-dependencies
+  runtimeOnly(libs.postgresql)
   // seed4j-needle-gradle-runtime-dependencies
   testImplementation(libs.spring.boot.starter.test)
+  testImplementation(libs.testcontainers.testcontainers.postgresql)
 
   // seed4j-needle-gradle-test-dependencies
 }

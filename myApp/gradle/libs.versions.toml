@@ -1,6 +1,7 @@
 bundles = {}
 
 [versions]
+	testcontainers = "2.0.3"
 	spring-boot = "4.0.2"
 
 	[plugins.spring-boot]
@@ -9,6 +10,17 @@ bundles = {}
 		[plugins.spring-boot.version]
 			ref = "spring-boot"
 
+	[libraries.hikariCP]
+		name = "HikariCP"
+		group = "com.zaxxer"
+
+	[libraries.testcontainers-testcontainers-postgresql]
+		name = "testcontainers-postgresql"
+		group = "org.testcontainers"
+
+		[libraries.testcontainers-testcontainers-postgresql.version]
+			ref = "testcontainers"
+
 	[libraries.spring-boot-starter]
 		name = "spring-boot-starter"
 		group = "org.springframework.boot"
@@ -16,6 +28,10 @@ bundles = {}
 	[libraries.spring-boot-starter-test]
 		name = "spring-boot-starter-test"
 		group = "org.springframework.boot"
+
+	[libraries.postgresql]
+		name = "postgresql"
+		group = "org.postgresql"
 
 	[libraries.spring-boot-dependencies]
 		name = "spring-boot-dependencies"
