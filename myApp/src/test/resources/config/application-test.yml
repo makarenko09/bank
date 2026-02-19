@@ -6,3 +6,5 @@ spring:
     password: ''
     url: jdbc:tc:postgresql:18.2:///bank?TC_TMPFS=/testtmpfs:rw
     username: bank
+  liquibase:
+    contexts: test

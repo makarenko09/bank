@@ -32,6 +32,7 @@ val profiles = (project.findProperty("profiles") as String? ?: "")
 dependencies {
   implementation(libs.hikariCP)
   implementation(libs.spring.boot.starter.data.jpa)
+  implementation(libs.spring.boot.starter.liquibase)
   // seed4j-needle-gradle-implementation-dependencies
   // seed4j-needle-gradle-compile-dependencies
   runtimeOnly(libs.postgresql)
