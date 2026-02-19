@@ -23,11 +23,16 @@ npm install
 
 ## Start up
 
+```bash
+docker compose -f src/main/docker/postgresql.yml up -d
+```
+
 
 <!-- seed4j-needle-startupCommand -->
 
 ## Documentation
 
 - [Hexagonal architecture](documentation/hexagonal-architecture.md)
+- [PostgreSQL](documentation/postgresql.md)
 
 <!-- seed4j-needle-documentation -->

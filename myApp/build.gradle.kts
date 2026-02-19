@@ -30,13 +30,16 @@ val profiles = (project.findProperty("profiles") as String? ?: "")
 // seed4j-needle-profile-activation
 
 dependencies {
+  implementation(libs.hikariCP)
   // seed4j-needle-gradle-implementation-dependencies
   // seed4j-needle-gradle-compile-dependencies
+  runtimeOnly(libs.postgresql)
   // seed4j-needle-gradle-runtime-dependencies
   testImplementation(libs.junit.engine)
   testImplementation(libs.junit.params)
   testImplementation(libs.assertj)
   testImplementation(libs.mockito)
+  testImplementation(libs.testcontainers.testcontainers.postgresql)
   // seed4j-needle-gradle-test-dependencies
 }
 
