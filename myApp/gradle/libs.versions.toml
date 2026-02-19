@@ -25,6 +25,10 @@ bundles = {}
 		name = "spring-boot-starter"
 		group = "org.springframework.boot"
 
+	[libraries.spring-boot-starter-data-jpa]
+		name = "spring-boot-starter-data-jpa"
+		group = "org.springframework.boot"
+
 	[libraries.spring-boot-starter-test]
 		name = "spring-boot-starter-test"
 		group = "org.springframework.boot"

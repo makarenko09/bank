@@ -42,6 +42,7 @@ dependencies {
   implementation(libs.spring.boot.configuration.processor)
   implementation(libs.commons.lang3)
   implementation(libs.hikariCP)
+  implementation(libs.spring.boot.starter.data.jpa)
   // seed4j-needle-gradle-implementation-dependencies
   // seed4j-needle-gradle-compile-dependencies
   runtimeOnly(libs.postgresql)
