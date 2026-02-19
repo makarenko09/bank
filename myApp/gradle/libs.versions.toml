@@ -21,6 +21,10 @@ bundles = {}
 		[libraries.testcontainers-testcontainers-postgresql.version]
 			ref = "testcontainers"
 
+	[libraries.spring-boot-starter-liquibase]
+		name = "spring-boot-starter-liquibase"
+		group = "org.springframework.boot"
+
 	[libraries.spring-boot-starter]
 		name = "spring-boot-starter"
 		group = "org.springframework.boot"
