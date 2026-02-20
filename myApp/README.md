@@ -2,19 +2,23 @@
 
 ## Prerequisites
 
-- JavaLanguageVersion.of(25) - for example:
+- JavaLanguageVersion.of(25) with SDKMAN - for example:
+
+1. Install SDKMAM,
+   Next step: source bashrc, restart sh
+2. Execute:
 
 ```bash
 sdk env install java 25.0.2.r25-nik;
 sdk default java <VERSION>
 ```
-Next: source bashrc, restart sh
 
 - Docker:
 
 ```bash
 docker compose -f src/main/docker/postgresql.yml up -d
 ```
+
 ### Node.js and NPM
 
 Before you can build this project, you must install and configure the following dependencies on your machine:
@@ -39,13 +43,8 @@ npm install
 ## Start up
 
 ```bash
-docker compose -f src/main/docker/postgresql.yml up -d
+docker compose -f src/main/docker/docker-compose.dev.yml up -d
 ```
-
-```bash
-docker compose -f src/main/docker/keycloak.yml up -d
-```
-
 
 <!-- seed4j-needle-startupCommand -->
 
