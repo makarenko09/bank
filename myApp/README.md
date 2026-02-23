@@ -2,22 +2,20 @@
 
 ## Prerequisites
 
-- JavaLanguageVersion.of(25) with SDKMAN - for example:
+- JavaLanguageVersion.of(25) - for example, with SDKMAN:
 
 1. Install SDKMAM,
    Next step: source bashrc, restart sh
-2. Execute:
+2. Put next and sourse your shell:
 
 ```bash
-sdk env install java 25.0.2.r25-nik;
-sdk default java <VERSION>
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!
+
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"" >> ~/.bashrc
 ```
 
-- Docker:
-
-```bash
-docker compose -f src/main/docker/postgresql.yml up -d
-```
+- Docker
 
 ### Node.js and NPM
 
@@ -43,8 +41,10 @@ npm install
 ## Start up
 
 ```bash
-docker compose -f src/main/docker/docker-compose.dev.yml up -d
+docker compose -f docker-compose.yml up -d
 ```
+
+- See as work KeyCloak App: [...2026-02-23 17:50:28,511 INFO [io.quarkus] (main) Keycloak 26.5.3 on JVM (powered by Quarkus 3.27.2) started in 10.866s. Listening on: http://0.0.0.0:9081.⁠ Management interface listening on http://0.0.0.0:9000 ...\]](http://localhost:9081)
 
 <!-- seed4j-needle-startupCommand -->
 
@@ -58,3 +58,14 @@ docker compose -f src/main/docker/docker-compose.dev.yml up -d
 - [CORS configuration](documentation/cors-configuration.md)
 
 <!-- seed4j-needle-documentation -->
+
+## FAQ
+
+###### \- API doc:
+
+Открой в браузере:
+http://localhost:8080/swagger-ui/index.html
+или http://localhost:8080/swagger-ui.html
+
+> DEBUG
+> Для проверки спецификации: http://localhost:8080/v3/api-docs
