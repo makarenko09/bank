@@ -55,6 +55,7 @@ dependencies {
   // seed4j-needle-gradle-implementation-dependencies
   // seed4j-needle-gradle-compile-dependencies
   runtimeOnly(libs.postgresql)
+  runtimeOnly(libs.spring.boot.devtools)
   // seed4j-needle-gradle-runtime-dependencies
   testImplementation(libs.spring.boot.starter.test)
   testImplementation(libs.testcontainers.testcontainers.postgresql)

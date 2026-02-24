@@ -56,6 +56,7 @@ docker compose -f docker-compose.yml up -d
 - [PostgreSQL](documentation/postgresql.md)
 - [Logs Spy](documentation/logs-spy.md)
 - [CORS configuration](documentation/cors-configuration.md)
+- [Dev tools](documentation/dev-tools.md)
 
 <!-- seed4j-needle-documentation -->
 

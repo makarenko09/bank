@@ -87,6 +87,10 @@ bundles = {}
 		name = "spring-boot-starter-validation"
 		group = "org.springframework.boot"
 
+	[libraries.spring-boot-devtools]
+		name = "spring-boot-devtools"
+		group = "org.springframework.boot"
+
 	[libraries.spring-boot-configuration-processor]
 		name = "spring-boot-configuration-processor"
 		group = "org.springframework.boot"

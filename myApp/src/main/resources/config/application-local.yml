@@ -3,3 +3,9 @@ logging:
     com:
       example:
         bankcards: DEBUG
+spring:
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
