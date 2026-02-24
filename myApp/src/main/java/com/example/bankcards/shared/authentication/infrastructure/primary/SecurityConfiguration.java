@@ -72,7 +72,7 @@ class SecurityConfiguration {
           permissions.policy("camera=(), fullscreen=(self), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), sync-xhr=()"))
       )
       .authorizeHttpRequests(authz -> authz
-        .requestMatchers(HttpMethod.OPTIONS, "/public**").permitAll()
+        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
         .requestMatchers("/public/app/**").permitAll()
         .requestMatchers("/public/i18n/**").permitAll()
         .requestMatchers("/public/content/**").permitAll()
@@ -81,7 +81,6 @@ class SecurityConfiguration {
         // .requestMatchers("/v3/api-docs/**").permitAll()
         
         
-        .requestMatchers(HttpMethod.OPTIONS, "/**").hasAuthority(Role.ADMIN.key())
         .requestMatchers("/swagger-ui/**").hasAnyAuthority(Role.ADMIN.key())
         .requestMatchers("/swagger-ui.html").hasAnyAuthority(Role.ADMIN.key())
         .requestMatchers("/v3/api-docs/**").hasAnyAuthority(Role.ADMIN.key())
