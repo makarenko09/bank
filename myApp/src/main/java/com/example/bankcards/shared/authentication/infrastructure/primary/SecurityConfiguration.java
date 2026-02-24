@@ -81,7 +81,7 @@ class SecurityConfiguration {
         // .requestMatchers("/v3/api-docs/**").permitAll()
         
         
-        .requestMatchers(HttpMethod.OPTIONS, "/public**").permitAll()
+        .requestMatchers(HttpMethod.OPTIONS, "/**").hasAuthority(Role.ADMIN.key())
         .requestMatchers("/swagger-ui/**").hasAnyAuthority(Role.ADMIN.key())
         .requestMatchers("/swagger-ui.html").hasAnyAuthority(Role.ADMIN.key())
         .requestMatchers("/v3/api-docs/**").hasAnyAuthority(Role.ADMIN.key())
