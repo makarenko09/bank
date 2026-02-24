@@ -72,13 +72,24 @@ class SecurityConfiguration {
           permissions.policy("camera=(), fullscreen=(self), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), sync-xhr=()"))
       )
       .authorizeHttpRequests(authz -> authz
-        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-        .requestMatchers("/app/**").permitAll()
-        .requestMatchers("/i18n/**").permitAll()
-        .requestMatchers("/content/**").permitAll()
-        .requestMatchers("/swagger-ui/**").permitAll()
-        .requestMatchers("/swagger-ui.html").permitAll()
-        .requestMatchers("/v3/api-docs/**").permitAll()
+        .requestMatchers(HttpMethod.OPTIONS, "/public**").permitAll()
+        .requestMatchers("/public/app/**").permitAll()
+        .requestMatchers("/public/i18n/**").permitAll()
+        .requestMatchers("/public/content/**").permitAll()
+        // .requestMatchers("/swagger-ui/**").permitAll()
+        // .requestMatchers("/swagger-ui.html").permitAll()
+        // .requestMatchers("/v3/api-docs/**").permitAll()
+        
+        
+        .requestMatchers(HttpMethod.OPTIONS, "/**").hasAuthority(Role.ADMIN.key())
+        .requestMatchers("/swagger-ui/**").hasAnyAuthority(Role.ADMIN.key())
+        .requestMatchers("/swagger-ui.html").hasAnyAuthority(Role.ADMIN.key())
+        .requestMatchers("/v3/api-docs/**").hasAnyAuthority(Role.ADMIN.key())
+        // .requestMatchers("/v3/api-docs/**").permitAll()
+        // FIXME
+        // Для Клиентов и конечных пользователей
+        // Self-service автоматизация: Например, продвинутые пользователи могут импортировать openApш.yml в Zapier или Make.
+
         .requestMatchers("/test/**").permitAll()
         .requestMatchers(PathPatternRequestMatcher.withDefaults().matcher("/api/authenticate")).permitAll()
         .requestMatchers(PathPatternRequestMatcher.withDefaults().matcher("/api/auth-info")).permitAll()
@@ -91,6 +102,8 @@ class SecurityConfiguration {
         .requestMatchers(PathPatternRequestMatcher.withDefaults().matcher("/management/**")).hasAuthority(Role.ADMIN.key())
         .anyRequest().authenticated()
       )
+      .anonymous(anonymous -> anonymous.disable())
+
       .oauth2Login(withDefaults())
       .oauth2ResourceServer(oauth2 -> oauth2
         .jwt(jwt -> jwt.jwtAuthenticationConverter(authenticationConverter()))

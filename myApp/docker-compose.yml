@@ -1,3 +1,4 @@
 include:
   - src/main/docker/postgresql.yml
   - src/main/docker/keycloak.yml
+name: bank_rest
