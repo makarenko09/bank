@@ -51,9 +51,8 @@ class SecurityConfiguration {
   private String issuerUri;
 
   public SecurityConfiguration(
-    CorsFilter corsFilter,
-    ApplicationSecurityProperties applicationSecurityProperties
-  ) {
+      CorsFilter corsFilter,
+      ApplicationSecurityProperties applicationSecurityProperties) {
     this.corsFilter = corsFilter;
     this.applicationSecurityProperties = applicationSecurityProperties;
   }
@@ -73,35 +72,28 @@ class SecurityConfiguration {
       )
       .authorizeHttpRequests(authz -> authz
         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-        .requestMatchers("/public/app/**").permitAll()
-        .requestMatchers("/public/i18n/**").permitAll()
-        .requestMatchers("/public/content/**").permitAll()
-        // .requestMatchers("/swagger-ui/**").permitAll()
-        // .requestMatchers("/swagger-ui.html").permitAll()
-        // .requestMatchers("/v3/api-docs/**").permitAll()
-        
-        
-        .requestMatchers("/swagger-ui/**").hasAnyAuthority(Role.ADMIN.key())
-        .requestMatchers("/swagger-ui.html").hasAnyAuthority(Role.ADMIN.key())
-        .requestMatchers("/v3/api-docs/**").hasAnyAuthority(Role.ADMIN.key())
-        // .requestMatchers("/v3/api-docs/**").permitAll()
-        // FIXME
-        // Для Клиентов и конечных пользователей
-        // Self-service автоматизация: Например, продвинутые пользователи могут импортировать openApш.yml в Zapier или Make.
+        .requestMatchers("/app/**").permitAll()
+        .requestMatchers("/i18n/**").permitAll()
+        .requestMatchers("/content/**").permitAll()
+        .requestMatchers("/swagger-ui/**").permitAll()
+        .requestMatchers("/swagger-ui.html").permitAll()
+        .requestMatchers("/v3/api-docs/**").permitAll()
 
+        
         .requestMatchers("/test/**").permitAll()
-        .requestMatchers(PathPatternRequestMatcher.withDefaults().matcher("/api/authenticate")).permitAll()
-        .requestMatchers(PathPatternRequestMatcher.withDefaults().matcher("/api/auth-info")).permitAll()
-        .requestMatchers(PathPatternRequestMatcher.withDefaults().matcher("/api/admin/**")).hasAuthority(Role.ADMIN.key())
-        .requestMatchers(PathPatternRequestMatcher.withDefaults().matcher("/api/**")).authenticated()
+        .requestMatchers("/api/authenticate", "/api/auth-info").permitAll()
+        .requestMatchers("/api/admin/**").hasAuthority(Role.ADMIN.key())
+        .requestMatchers("/api/**").authenticated()
+
+        // Spring Boot Actuator
         .requestMatchers(PathPatternRequestMatcher.withDefaults().matcher("/management/health")).permitAll()
         .requestMatchers(PathPatternRequestMatcher.withDefaults().matcher("/management/health/**")).permitAll()
+        .requestMatchers(PathPatternRequestMatcher.withDefaults().matcher("/api/auth-info")).permitAll()
         .requestMatchers(PathPatternRequestMatcher.withDefaults().matcher("/management/info")).permitAll()
         .requestMatchers(PathPatternRequestMatcher.withDefaults().matcher("/management/prometheus")).permitAll()
         .requestMatchers(PathPatternRequestMatcher.withDefaults().matcher("/management/**")).hasAuthority(Role.ADMIN.key())
         .anyRequest().authenticated()
       )
-      .anonymous(anonymous -> anonymous.disable())
 
       .oauth2Login(withDefaults())
       .oauth2ResourceServer(oauth2 -> oauth2
@@ -122,7 +114,8 @@ class SecurityConfiguration {
   /**
    * Map authorities from "groups" or "roles" claim in ID Token.
    *
-   * @return a {@link GrantedAuthoritiesMapper} that maps groups from the IdP to Spring Security Authorities.
+   * @return a {@link GrantedAuthoritiesMapper} that maps groups from the IdP to
+   *         Spring Security Authorities.
    */
   @Bean
   public GrantedAuthoritiesMapper userAuthoritiesMapper() {
@@ -142,20 +135,21 @@ class SecurityConfiguration {
 
   @Bean
   @ExcludeFromGeneratedCodeCoverage(reason = "Only called with a valid client registration repository")
-  public JwtDecoder jwtDecoder(ClientRegistrationRepository clientRegistrationRepository, RestTemplateBuilder restTemplateBuilder) {
+  public JwtDecoder jwtDecoder(ClientRegistrationRepository clientRegistrationRepository,
+      RestTemplateBuilder restTemplateBuilder) {
     NimbusJwtDecoder jwtDecoder = JwtDecoders.fromOidcIssuerLocation(issuerUri);
 
-    OAuth2TokenValidator<Jwt> audienceValidator = new AudienceValidator(applicationSecurityProperties.getOauth2().getAudience());
+    OAuth2TokenValidator<Jwt> audienceValidator = new AudienceValidator(
+        applicationSecurityProperties.getOauth2().getAudience());
     OAuth2TokenValidator<Jwt> withIssuer = JwtValidators.createDefaultWithIssuer(issuerUri);
     OAuth2TokenValidator<Jwt> withAudience = new DelegatingOAuth2TokenValidator<>(withIssuer, audienceValidator);
 
     jwtDecoder.setJwtValidator(withAudience);
     jwtDecoder.setClaimSetConverter(
-      new CustomClaimConverter(
-        clientRegistrationRepository.findByRegistrationId("oidc"),
-        restTemplateBuilder.connectTimeout(Duration.ofMillis(TIMEOUT)).readTimeout(Duration.ofMillis(TIMEOUT)).build()
-      )
-    );
+        new CustomClaimConverter(
+            clientRegistrationRepository.findByRegistrationId("oidc"),
+            restTemplateBuilder.connectTimeout(Duration.ofMillis(TIMEOUT)).readTimeout(Duration.ofMillis(TIMEOUT))
+                .build()));
 
     return jwtDecoder;
   }
