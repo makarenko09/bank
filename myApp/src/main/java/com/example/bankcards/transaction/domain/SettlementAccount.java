@@ -8,7 +8,7 @@ class SettlementAccount {
     private final BigDecimal valueOnSettlementAccount;
 
     public SettlementAccount(BigDecimal valueOnSettlementAccount) {
-        Assert.field("Account", valueOnSettlementAccount).strictlyPositive();
+        Assert.field("Account", valueOnSettlementAccount).positive();
         this.valueOnSettlementAccount = valueOnSettlementAccount;
     }
 

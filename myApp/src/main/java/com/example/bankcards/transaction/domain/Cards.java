@@ -5,6 +5,7 @@ import com.example.bankcards.shared.collection.domain.BankCollections;
 import com.example.bankcards.transaction.domain.card.Card;
 
 public record Cards(Set<Card> cards) {
+
     public static final Cards EMPTY = new Cards(null);
 
     public Cards(Set<Card> cards) {

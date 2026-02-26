@@ -1,6 +1,5 @@
 package com.example.bankcards.transaction.application;
 
-import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.stereotype.Component;
@@ -20,8 +19,7 @@ public class ActivatedCard {
 
         newCard.activate();
         // client.getCards().add(newCard);
-        Set<Card> set = client.getCards().get();
-        set.add(newCard);
+        client.getCards().add(newCard);
     }
 
     // public void activatedCard
