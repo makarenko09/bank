@@ -1,4 +1,8 @@
 spring:
+  profile:
+    active: local
+  thymeleaf:
+    cache: false
   datasource:
     driver-class-name: org.postgresql.Driver
     hikari:
@@ -52,9 +56,9 @@ spring:
             scope: openid,profile,email
   devtools:
     livereload:
-      enabled: false
+      enabled: true
     restart:
-      enabled: false
+      enabled: true
 logging:
   level:
     com:

@@ -2,7 +2,17 @@
   "workbench.colorCustomizations": {
     "activityBar.background": "#06323E",
     "titleBar.activeBackground": "#094657",
-    "titleBar.activeForeground": "#F4FCFE"
+    "titleBar.activeForeground": "#F4FCFE",
+    "titleBar.inactiveBackground": "#06323E",
+    "titleBar.inactiveForeground": "#F4FCFE",
+    "statusBar.background": "#06323E",
+    "statusBar.foreground": "#F4FCFE",
+    "statusBar.debuggingBackground": "#06323E",
+    "statusBar.debuggingForeground": "#F4FCFE",
+    "statusBar.noFolderBackground": "#06323E",
+    "statusBar.noFolderForeground": "#F4FCFE"
   },
-  "java.configuration.updateBuildConfiguration": "interactive"
+  "java.configuration.updateBuildConfiguration": "interactive",
+  "a-file-icon-vscode.folderColor": "#8b9eb5",
+  "java.debug.settings.hotCodeReplace": "auto"
 }
