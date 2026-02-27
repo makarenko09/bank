@@ -76,3 +76,27 @@ application:
   security:
     oauth2:
       audience: account,api://default
+management:
+  endpoint:
+    health:
+      access: read-only
+      probes:
+        enabled: true
+      show-details: always
+  endpoints:
+    access:
+      default: none
+    jmx:
+      exposure:
+        exclude: '*'
+    web:
+      base-path: /management
+      exposure:
+        include:
+        - configprops
+        - env
+        - health
+        - info
+        - logfile
+        - loggers
+        - threaddump

@@ -3,10 +3,6 @@ package com.example.bankcards.transaction.domain;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import com.example.bankcards.shared.collection.domain.BankCollections;
 import com.example.bankcards.shared.error.domain.Assert;
 import com.example.bankcards.transaction.domain.card.Card;
 

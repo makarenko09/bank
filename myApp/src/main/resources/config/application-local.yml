@@ -9,3 +9,10 @@ spring:
       enabled: true
     restart:
       enabled: true
+management:
+  endpoints:
+    access:
+      default: unrestricted
+    web:
+      exposure:
+        include: '*'

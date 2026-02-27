@@ -56,6 +56,10 @@ bundles = {}
 		[libraries.springdoc-openapi-starter-webmvc-api.version]
 			ref = "springdoc-openapi"
 
+	[libraries.spring-boot-starter-actuator]
+		name = "spring-boot-starter-actuator"
+		group = "org.springframework.boot"
+
 	[libraries.hikariCP]
 		name = "HikariCP"
 		group = "com.zaxxer"

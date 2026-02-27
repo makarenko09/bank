@@ -52,6 +52,7 @@ dependencies {
   implementation(libs.spring.boot.starter.restclient)
   implementation(libs.spring.boot.starter.oauth2.client)
   implementation(libs.spring.boot.starter.oauth2.resource.server)
+  implementation(libs.spring.boot.starter.actuator)
   // seed4j-needle-gradle-implementation-dependencies
   // seed4j-needle-gradle-compile-dependencies
   runtimeOnly(libs.postgresql)
