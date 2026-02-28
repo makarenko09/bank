@@ -4,16 +4,10 @@ import java.time.YearMonth;
 
 public record ExpiryDate(YearMonth value) {
 
+    public final static ExpiryDate EXPIRYBEFORE = ofYearsFromNow(4);
+
     public static ExpiryDate ofYearsFromNow(int years) {
         return new ExpiryDate(YearMonth.now().plusYears(years));
-    }
-
-    public static ExpiryDate now() {
-        return new ExpiryDate(YearMonth.now());
-    }
-
-    public boolean isExpired() {
-        return value.isBefore(YearMonth.now());
     }
 
     public String toDisplayString() {
