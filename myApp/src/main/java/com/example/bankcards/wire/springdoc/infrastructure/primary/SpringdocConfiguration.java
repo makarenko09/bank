@@ -24,10 +24,10 @@ class SpringdocConfiguration {
 
   private Info swaggerInfo() {
     return new Info()
-      .title("Project API")
-      .description("Project description API")
-      .version(version)
-      .license(new License().name("No license"));
+        .title("PaatoM/bank_rest API")
+        .description("🚀 Разработка Системы Управления Банковскими Картами")
+        .version(version)
+        .license(new License().name("REST_BANK"));
   }
 
   private ExternalDocumentation swaggerExternalDoc() {
