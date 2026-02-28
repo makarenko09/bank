@@ -1,16 +1,20 @@
+// 
 package com.example.bankcards.transaction.domain.card;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
 import com.example.bankcards.shared.error.domain.Assert;
+import com.example.bankcards.transaction.domain.card.dto.CardNumberConverter;
+import com.example.bankcards.transaction.domain.card.dto.ExpiryDateConverter;
+import com.example.bankcards.transaction.domain.card.dto.MoneyConverter;
 import com.example.bankcards.transaction.domain.card.params.CardId;
 import com.example.bankcards.transaction.domain.card.params.CardNumber;
 import com.example.bankcards.transaction.domain.card.params.CardStatus;
 import com.example.bankcards.transaction.domain.card.params.ExpiryDate;
 import com.example.bankcards.transaction.domain.card.params.Money;
-
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -23,11 +27,21 @@ public class Card {
 
     @Id
     private final UUID id;
+    // @ManyToOne(fetch = FetchType.EAGER)
+    // @JoinColumn(name = "clientaccount_id")
+    // @JsonBackReference
+    // private ClientAccount account;
 
     @Column(nullable = false)
+    @Convert(converter = CardNumberConverter.class)
     private final CardNumber number;
 
+    public UUID getOwnerId() {
+        return ownerId;
+    }
+
     @Column(nullable = false, name = "expiry_end", columnDefinition = "DATE")
+    @Convert(converter = ExpiryDateConverter.class)
     private final ExpiryDate expiryDate;
 
     @Enumerated(EnumType.STRING)
@@ -35,7 +49,16 @@ public class Card {
     private CardStatus status;
 
     @Column(name = "balance", columnDefinition = "NUMERIC")
+    @Convert(converter = MoneyConverter.class)
     private Money balance;
+
+    public Money getBalance() {
+        return balance;
+    }
+
+    public CardNumber getNumber() {
+        return number;
+    }
 
     @Column(name = "user_id", nullable = false)
     private UUID ownerId;
@@ -70,7 +93,6 @@ public class Card {
     public void cardValidatetior() {
         Assert.field("CardStatus is block", status.name()).equals(CardStatus.BLOCKED.name());
         Assert.field("CardStatus is expired", status.name()).equals(CardStatus.EXPIRED.name());
-
     }
 
     public CardNumber number() {
@@ -89,8 +111,8 @@ public class Card {
         return number.masked();
     }
 
-    public CardId getId() {
-        return new CardId(this.id);
+    public UUID getId() {
+        return id;
     }
 
     public ExpiryDate getExpiryDate() {

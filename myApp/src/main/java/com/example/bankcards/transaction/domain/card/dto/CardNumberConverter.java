@@ -4,7 +4,7 @@ import com.example.bankcards.transaction.domain.card.params.CardNumber;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 
-@Converter(autoApply = true)
+@Converter
 public class CardNumberConverter implements AttributeConverter<CardNumber, String> {
 
     @Override

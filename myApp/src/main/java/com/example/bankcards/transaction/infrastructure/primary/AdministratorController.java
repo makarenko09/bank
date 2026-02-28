@@ -1,9 +1,12 @@
 package com.example.bankcards.transaction.infrastructure.primary;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.bankcards.transaction.domain.ClientAccount;
 import com.example.bankcards.transaction.infrastructure.secondary.AdministratorClientManagment;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/api/admin/management-users")
@@ -15,8 +18,8 @@ public class AdministratorController {
         this.administratorClientManagment = administratorClientManagment;
     }
 
-    @PostMapping("/create-user")
-    public ClientAccount createUser(@RequestBody String ownerName) {
-        return administratorClientManagment.createAccount(ownerName);
+    @PostMapping("create-user")
+    public ResponseEntity<ClientAccount> createUser(@RequestBody String ownerName) {
+        return ResponseEntity.ok(administratorClientManagment.createAccount(ownerName));
     }
 }

@@ -7,7 +7,7 @@ import jakarta.persistence.Converter;
 
 import java.math.BigDecimal;
 
-@Converter(autoApply = true)
+@Converter
 public class MoneyConverter implements AttributeConverter<Money, BigDecimal> {
 
     @Override

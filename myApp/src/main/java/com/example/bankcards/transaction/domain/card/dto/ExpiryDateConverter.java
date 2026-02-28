@@ -6,7 +6,7 @@ import jakarta.persistence.Converter;
 
 import java.time.YearMonth;
 
-@Converter(autoApply = true)
+@Converter
 public class ExpiryDateConverter implements AttributeConverter<ExpiryDate, YearMonth> {
     @Override
     public YearMonth convertToDatabaseColumn(ExpiryDate attribute) {
