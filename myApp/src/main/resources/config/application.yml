@@ -1,5 +1,5 @@
 spring:
-  profile:
+  profiles:
     active: local
   thymeleaf:
     cache: false
@@ -60,9 +60,10 @@ spring:
             scope: openid,profile,email
   devtools:
     livereload:
-      enabled: true
+      enabled: false
     restart:
-      enabled: true
+      enabled: false
+  
 logging:
   level:
     com:
