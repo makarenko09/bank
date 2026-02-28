@@ -8,6 +8,7 @@ import com.example.bankcards.transaction.domain.card.Card;
 
 public class ClientAccount {
     private final Set<Card> cards = new HashSet<>();
+
     private final UUID userId;
     private final String ownerName;
     private final SettlementAccount settlementAccount;
@@ -16,7 +17,10 @@ public class ClientAccount {
         this.userId = userId;
         this.ownerName = ownerName;
         this.settlementAccount = SettlementAccount.SettlementAccountBuilder();
-        // this.cards = buildCards();
+    }
+
+    public static ClientAccount ClientAccountBuilder(String ownerName) {
+        return new ClientAccount(UUID.randomUUID(), ownerName);
     }
 
     public void addCard(Card card) {
@@ -27,22 +31,6 @@ public class ClientAccount {
     public Set<Card> getCards() {
         return cards;
     }
-
-    public static ClientAccount ClientAccountBuilder(String ownerName) {
-        return new ClientAccount(UUID.randomUUID(), ownerName);
-    }
-
-    // private static Cards buildCards() {
-
-    // return Cards.EMPTY;
-    // }
-
-    // public Client(List<Card> cards, UUID userId, String ownerName) {
-    // this.cards = cards;
-    // this.userId = userId;
-    // this.ownerName = oCardswnerName;
-    // this.settlementAccount = SettlementAccount.createAccount();
-    // }
 
     public UUID getUserId() {
         return userId;

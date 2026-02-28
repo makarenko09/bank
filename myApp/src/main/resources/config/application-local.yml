@@ -6,7 +6,7 @@ logging:
 spring:
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
 
   devtools:
     livereload:
@@ -22,4 +22,4 @@ management:
         include: '*'
 application:
      liquibase:
-      async: true
+      async: false

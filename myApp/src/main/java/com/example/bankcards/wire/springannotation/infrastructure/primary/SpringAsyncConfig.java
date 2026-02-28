@@ -1,6 +1,7 @@
 package com.example.bankcards.wire.springannotation.infrastructure.primary;
 
 import java.util.concurrent.Executor;
+import java.util.concurrent.ThreadPoolExecutor;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,10 +24,13 @@ public class SpringAsyncConfig implements AsyncConfigurer {
     @Bean(name = "taskExecutor")
     public TaskExecutor threadPoolTaskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(1);
-        // executor.setMaxPoolSize(10);
-        // executor.setQueueCapacity(25);
+        // executor.setCorePoolSize(3);
+        // executor.setMaxPoolSize(9);
+        // executor.setQueueCapacity(12);
         executor.setThreadNamePrefix("Pool-TaskExecutor:Liqubase-DataSourse");
+        executor.setWaitForTasksToCompleteOnShutdown(true);
+        executor.setAwaitTerminationSeconds(30);
+        executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
         executor.initialize();
         return executor;
     }
