@@ -1,10 +1,10 @@
-// 
 package com.example.bankcards.transaction.domain.card;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
 import com.example.bankcards.shared.error.domain.Assert;
+import com.example.bankcards.transaction.domain.ClientAccount;
 import com.example.bankcards.transaction.domain.card.dto.CardNumberConverter;
 import com.example.bankcards.transaction.domain.card.dto.ExpiryDateConverter;
 import com.example.bankcards.transaction.domain.card.dto.MoneyConverter;
@@ -13,24 +13,29 @@ import com.example.bankcards.transaction.domain.card.params.CardNumber;
 import com.example.bankcards.transaction.domain.card.params.CardStatus;
 import com.example.bankcards.transaction.domain.card.params.ExpiryDate;
 import com.example.bankcards.transaction.domain.card.params.Money;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
-@Table(name = "cards")
 public class Card {
 
     @Id
+    @GeneratedValue
     private final UUID id;
-    // @ManyToOne(fetch = FetchType.EAGER)
-    // @JoinColumn(name = "clientaccount_id")
-    // @JsonBackReference
-    // private ClientAccount account;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "client_id")
+    @JsonBackReference
+    private ClientAccount account;
 
     @Column(nullable = false)
     @Convert(converter = CardNumberConverter.class)

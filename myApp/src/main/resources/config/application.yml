@@ -37,7 +37,7 @@ spring:
           fail_on_pagination_over_collection_fetch: true
           in_clause_parameter_padding: true
   liquibase:
-    enabled: true
+    enabled: false
     change-log: classpath:config/liquibase/master.xml
     url: jdbc:postgresql://localhost:5432/bank
     user: bank

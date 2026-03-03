@@ -20,6 +20,7 @@ public class AdministratorController {
 
     @PostMapping("/create-user")
     public ResponseEntity<ClientAccount> createUser(@RequestBody String ownerName) {
-        return ResponseEntity.ok(new ClientAccount(null, ownerName));
+        return ResponseEntity.ok(administratorClientManagment.createClientAccount(ownerName));
     }
+
 }
