@@ -1,5 +1,6 @@
 package com.example.bankcards.transaction.infrastructure.secondary;
 
+import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,11 @@ public class AdministratorClientManagment {
         ClientAccount clientAccount = new ClientAccount(ownerName);
         return repository.save(clientAccount);
 
+    }
+
+    @Transactional
+    public ClientAccount getClientAccount(String ownerName) {
+        return repository.findByOwnerName(ownerName);
     }
 
 }
