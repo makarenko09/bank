@@ -31,15 +31,15 @@ public class Card {
 
     @Id
     @GeneratedValue
-    private final UUID id;
+    private UUID id;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "account_id")
     @JsonBackReference
     private ClientAccount account;
 
     @Column(nullable = false)
     @Convert(converter = CardNumberConverter.class)
-    private final CardNumber number;
+    private CardNumber number;
 
     public UUID getOwnerId() {
         return ownerId;
@@ -47,7 +47,7 @@ public class Card {
 
     @Column(nullable = false, name = "expiry_end", columnDefinition = "DATE")
     @Convert(converter = ExpiryDateConverter.class)
-    private final ExpiryDate expiryDate;
+    private ExpiryDate expiryDate;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 20)
@@ -87,6 +87,9 @@ public class Card {
 
     public void block() {
         this.status = CardStatus.BLOCKED;
+    }
+
+    public Card() {
     }
 
     public Card activate() {

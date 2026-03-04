@@ -23,26 +23,28 @@ public class ClientAccount {
 
     @OneToMany(mappedBy = "account", orphanRemoval = true)
     @JsonManagedReference
-    private final Set<Card> cards = new HashSet<>();
+    private Set<Card> cards = new HashSet<>();
 
     @Id
     @GeneratedValue
-    private final UUID userId;
+    private UUID userId;
 
-    private final String ownerName;
+    private String ownerName;
 
     @Column(name = "bill", columnDefinition = "NUMERIC")
-    @Convert(converter = MoneyConverter.class)
-    private final SettlementAccount settlementAccount;
+    @Convert(converter = SettlementAccountConverter.class)
+    private SettlementAccount settlementAccount;
 
     public SettlementAccount getSettlementAccount() {
         return settlementAccount;
     }
 
-    public ClientAccount(UUID userId, String ownerName) {
-        this.userId = userId;
+    public ClientAccount(String ownerName) {
         this.ownerName = ownerName;
         this.settlementAccount = new SettlementAccount(BigDecimal.ZERO);
+    }
+
+    public ClientAccount() {
     }
 
     public Set<Card> getCards() {
