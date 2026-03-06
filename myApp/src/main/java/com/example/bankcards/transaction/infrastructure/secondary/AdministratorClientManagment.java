@@ -1,5 +1,7 @@
 package com.example.bankcards.transaction.infrastructure.secondary;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,13 +29,22 @@ public class AdministratorClientManagment {
     @Transactional
     public ClientAccount getClientAccount(String ownerName) {
         Assert.field("getClientAccountByOwnerName", ownerName).notNull().notBlank();
-        return repository.findByOwnerName(ownerName);
+        ClientAccount clientAccount = repository.findByOwnerName(ownerName);
+        // FIXME: Need Err Handler without stackTrace:
+        // h [] threw exception [Request processing failed:
+        // java.lang.NullPointerException: Cannot invoke
+        // "com.example.bankcards.transaction.domain.ClientAccount.getOwnerName()"
+        // because "clientAccount" is null] with root cause
+        Assert.notBlank("getClientAccountBy", clientAccount.getOwnerName());
+        return clientAccount;
     }
 
     @Transactional
     public void publishCardforClient(String ownerName) {
         ClientAccount clientAccount = getClientAccount(ownerName);
-        cardRepository.save(new Card(clientAccount.getUserId()));
+        Card card = new Card(clientAccount.getUserId());
+        card.setAccount(clientAccount);
+        cardRepository.save(card);
     }
 
 }

@@ -10,6 +10,6 @@ import com.example.bankcards.transaction.domain.ClientAccount;
 
 @Repository
 public interface ClientAccountRepository extends JpaRepository<ClientAccount, UUID> {
-    @NativeQuery("SELECT * FROM public.client_account WHERE owner_name LIKE %?1")
+    @NativeQuery("SELECT * FROM public.client_account AS c WHERE c.owner_name LIKE %?1")
     ClientAccount findByOwnerName(String owner_name);
 }
