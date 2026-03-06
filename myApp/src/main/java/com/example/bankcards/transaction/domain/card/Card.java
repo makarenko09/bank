@@ -8,7 +8,6 @@ import com.example.bankcards.transaction.domain.ClientAccount;
 import com.example.bankcards.transaction.domain.card.dto.CardNumberConverter;
 import com.example.bankcards.transaction.domain.card.dto.ExpiryDateConverter;
 import com.example.bankcards.transaction.domain.card.dto.MoneyConverter;
-import com.example.bankcards.transaction.domain.card.params.CardId;
 import com.example.bankcards.transaction.domain.card.params.CardNumber;
 import com.example.bankcards.transaction.domain.card.params.CardStatus;
 import com.example.bankcards.transaction.domain.card.params.ExpiryDate;
@@ -42,10 +41,6 @@ public class Card {
     @Convert(converter = CardNumberConverter.class)
     private CardNumber number;
 
-    public UUID getOwnerId() {
-        return ownerId;
-    }
-
     @Column(nullable = false, name = "expiry_end", columnDefinition = "DATE")
     @Convert(converter = ExpiryDateConverter.class)
     private ExpiryDate expiryDate;
@@ -71,6 +66,8 @@ public class Card {
 
     public Card(
             UUID userId) {
+
+        this.number = CardNumber.generate();
         this.expiryDate = ExpiryDate.EXPIRYBEFORE;
         this.status = CardStatus.BLOCKED;
         this.balance = new Money(BigDecimal.ZERO);
@@ -113,6 +110,10 @@ public class Card {
 
     public UUID getId() {
         return id;
+    }
+
+    public UUID getOwnerId() {
+        return ownerId;
     }
 
     public ExpiryDate getExpiryDate() {

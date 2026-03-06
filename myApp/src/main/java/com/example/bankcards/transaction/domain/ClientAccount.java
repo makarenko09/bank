@@ -6,7 +6,6 @@ import java.util.Set;
 import java.util.UUID;
 
 import com.example.bankcards.transaction.domain.card.Card;
-import com.example.bankcards.transaction.domain.card.dto.MoneyConverter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
