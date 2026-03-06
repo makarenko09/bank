@@ -26,4 +26,11 @@ public class AdministratorController {
         return ResponseEntity.ok(administratorClientManagment.getClientAccount(ownerName));
     }
 
+    @PutMapping("/get-user/add-card/{ownerName}")
+    public ResponseEntity<ClientAccount> publishNewCard(@PathVariable String ownerName) {
+        administratorClientManagment.publishCardforClient(ownerName);
+
+        return ResponseEntity.ok(administratorClientManagment.getClientAccount(ownerName));
+
+    }
 }

@@ -32,6 +32,7 @@ public class Card {
     @Id
     @GeneratedValue
     private UUID id;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "account_id")
     @JsonBackReference
@@ -69,20 +70,11 @@ public class Card {
     private UUID ownerId;
 
     public Card(
-            UUID id,
-            CardNumber number,
-            ExpiryDate expiryDate,
             UUID userId) {
-        this.id = id;
-        this.number = number;
-        this.expiryDate = expiryDate;
+        this.expiryDate = ExpiryDate.EXPIRYBEFORE;
         this.status = CardStatus.BLOCKED;
         this.balance = new Money(BigDecimal.ZERO);
         this.ownerId = userId;
-    }
-
-    public static Card CardBuilder(UUID ownerId) {
-        return new Card(CardId.generate(), CardNumber.generate(), ExpiryDate.EXPIRYBEFORE, ownerId);
     }
 
     public void block() {
@@ -126,4 +118,9 @@ public class Card {
     public ExpiryDate getExpiryDate() {
         return expiryDate;
     }
+
+    public void setAccount(ClientAccount account) {
+        this.account = account;
+    }
+
 }
