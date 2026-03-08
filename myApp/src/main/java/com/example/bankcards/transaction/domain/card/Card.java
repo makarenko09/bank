@@ -120,4 +120,11 @@ public class Card {
         this.status = status;
     }
 
+    public void setBalance(Money balance) {
+        this.balance = balance;
+    }
+
+    public ClientAccount getAccount() {
+        return account;
+    }
 }
