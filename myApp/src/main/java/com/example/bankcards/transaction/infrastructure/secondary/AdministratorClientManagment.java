@@ -1,22 +1,25 @@
 package com.example.bankcards.transaction.infrastructure.secondary;
 
-import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.bankcards.shared.error.domain.Assert;
+import com.example.bankcards.transaction.application.ClientMapper;
 import com.example.bankcards.transaction.domain.ClientAccount;
 import com.example.bankcards.transaction.domain.card.Card;
+import com.example.bankcards.transaction.domain.card.dto.ClientAccountWithCard;
 
 @Service
 public class AdministratorClientManagment {
     private final ClientAccountRepository repository;
     private final CardRepository cardRepository;
+    private final ClientMapper mapper;
 
-    public AdministratorClientManagment(ClientAccountRepository repository, CardRepository cardRepository) {
+    public AdministratorClientManagment(ClientAccountRepository repository, CardRepository cardRepository,
+            ClientMapper mapper) {
         this.repository = repository;
         this.cardRepository = cardRepository;
+        this.mapper = mapper;
     }
 
     @Transactional
@@ -45,6 +48,13 @@ public class AdministratorClientManagment {
         Card card = new Card(clientAccount.getUserId());
         card.setAccount(clientAccount);
         cardRepository.save(card);
+    }
+
+    @Transactional
+    public ClientAccountWithCard getClientAccountWithCards(String ownerName) {
+        return mapper.fromClientToClientWithCards()
+                .apply(getClientAccount(ownerName));
+
     }
 
 }

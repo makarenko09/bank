@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.bankcards.transaction.domain.ClientAccount;
+import com.example.bankcards.transaction.domain.card.dto.ClientAccountWithCard;
 import com.example.bankcards.transaction.infrastructure.secondary.AdministratorClientManagment;
 
 @RestController
@@ -26,11 +27,15 @@ public class AdministratorController {
         return ResponseEntity.ok(administratorClientManagment.getClientAccount(ownerName));
     }
 
-    @PutMapping("/get-user/add-card/{ownerName}")
-    public ResponseEntity<ClientAccount> publishNewCard(@PathVariable String ownerName) {
-        administratorClientManagment.publishCardforClient(ownerName);
-
-        return ResponseEntity.ok(administratorClientManagment.getClientAccount(ownerName));
-
+    @GetMapping("/get-user/{ownerName}/cards")
+    public ResponseEntity<ClientAccountWithCard> getUserCards(@PathVariable String ownerName) {
+        return ResponseEntity.ok(administratorClientManagment.getClientAccountWithCards(ownerName));
     }
+
+    @PutMapping("/set-user/add-card/{ownerName}")
+    public ResponseEntity<Void> publishNewCard(@PathVariable String ownerName) {
+        administratorClientManagment.publishCardforClient(ownerName);
+        return ResponseEntity.ok().build();
+    }
+
 }
