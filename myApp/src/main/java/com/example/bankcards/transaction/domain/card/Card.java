@@ -116,4 +116,8 @@ public class Card {
         this.account = account;
     }
 
+    public void setStatus(CardStatus status) {
+        this.status = status;
+    }
+
 }
