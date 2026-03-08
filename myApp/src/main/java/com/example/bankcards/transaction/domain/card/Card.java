@@ -61,9 +61,6 @@ public class Card {
         return number;
     }
 
-    @Column(name = "user_id", nullable = false)
-    private UUID ownerId;
-
     public Card(
             UUID userId) {
 
@@ -71,7 +68,6 @@ public class Card {
         this.expiryDate = ExpiryDate.EXPIRYBEFORE;
         this.status = CardStatus.BLOCKED;
         this.balance = new Money(BigDecimal.ZERO);
-        this.ownerId = userId;
     }
 
     public void block() {
@@ -110,10 +106,6 @@ public class Card {
 
     public UUID getId() {
         return id;
-    }
-
-    public UUID getOwnerId() {
-        return ownerId;
     }
 
     public ExpiryDate getExpiryDate() {
