@@ -1,6 +1,6 @@
 -- liquibase formatted sql
 
-CREATE TABLE public.client_account ( bill numeric NULL, user_id uuid NOT NULL, owner_name varchar(255) NULL, CONSTRAINT client_account_pkey PRIMARY KEY (user_id));
+CREATE TABLE public.client_account ( bill numeric NULL, user_id uuid NOT NULL, owner_name varchar(255) NULL, CONSTRAINT client_account_pkey null);
 
 ALTER TABLE public.client_account OWNER TO bank;
 GRANT ALL ON TABLE public.client_account TO bank;

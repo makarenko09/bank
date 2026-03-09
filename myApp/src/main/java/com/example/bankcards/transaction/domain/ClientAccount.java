@@ -28,6 +28,7 @@ public class ClientAccount {
     @GeneratedValue
     private UUID userId;
 
+    @Column(unique = true, nullable = false)
     private String ownerName;
 
     @Column(name = "bill", columnDefinition = "NUMERIC")
