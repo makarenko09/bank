@@ -1,9 +1,12 @@
 package com.example.bankcards.transaction.infrastructure.primary;
 
 import java.util.Collection;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,17 +15,24 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
 
+import com.example.bankcards.shared.authentication.domain.Role;
 import com.example.bankcards.transaction.domain.ClientAccount;
 import com.example.bankcards.transaction.domain.card.dto.ClientAccountWithCard;
 import com.example.bankcards.transaction.infrastructure.secondary.AdministratorClientManagment;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @RestController
 @RequestMapping("/api/admin/clients")
 @Tag(name = "Client Management", description = "API для управления клиентами (ADMIN only)")
+@Secured("ROLE_ADMIN")
 public class ClientManagementController {
 
     private final AdministratorClientManagment administratorClientManagment;
@@ -35,6 +45,54 @@ public class ClientManagementController {
     @Operation(summary = "Создать нового клиента", description = "Создает новый клиентский аккаунт с указанным именем владельца")
     public ResponseEntity<ClientAccount> createClient(@RequestBody String ownerName) {
         return ResponseEntity.ok(administratorClientManagment.createClientAccount(ownerName));
+    }
+
+    /**
+     * Создать клиента с синхронизацией Keycloak.
+     * POST /api/admin/clients/sync
+     * {
+     *   "ownerName": "john",
+     *   "email": "john@example.com",
+     *   "password": "secret123"
+     * }
+     */
+    @PostMapping("/sync")
+    @Operation(
+        summary = "Создать клиента с синхронизацией Keycloak",
+        description = "Создает клиента в PostgreSQL и синхронизирует с Keycloak (username = ownerName)"
+    )
+    public ResponseEntity<Map<String, Object>> createClientWithKeycloakSync(
+            @RequestBody @Valid SyncClientRequest request) {
+        ClientAccount account = administratorClientManagment.createClientAccountWithKeycloakSync(
+            request.ownerName(),
+            request.email(),
+            request.password()
+        );
+        return ResponseEntity.ok(Map.of(
+            "userId", account.getUserId().toString(),
+            "ownerName", account.getOwnerName(),
+            "synced", true
+        ));
+    }
+
+    /**
+     * Синхронизировать существующего клиента с Keycloak.
+     * POST /api/admin/clients/{ownerName}/sync
+     */
+    @PostMapping("/{ownerName}/sync")
+    @Operation(
+        summary = "Синхронизировать существующего клиента с Keycloak",
+        description = "Если клиент есть в PostgreSQL, но нет в Keycloak — создаст в Keycloak"
+    )
+    public ResponseEntity<Map<String, Boolean>> syncClientWithKeycloak(
+            @PathVariable String ownerName,
+            @RequestBody @Valid SyncCredentialsRequest request) {
+        boolean synced = administratorClientManagment.syncClientWithKeycloak(
+            ownerName,
+            request.email(),
+            request.password()
+        );
+        return ResponseEntity.ok(Map.of("synced", synced));
     }
 
     @GetMapping("/{ownerName}")
@@ -68,4 +126,15 @@ public class ClientManagementController {
         administratorClientManagment.deleteClient(clientId);
         return ResponseEntity.noContent().build();
     }
+
+    public record SyncClientRequest(
+        @NotBlank(message = "ownerName is required") String ownerName,
+        @NotBlank(message = "email is required") @Email(message = "email must be valid") String email,
+        @NotBlank(message = "password is required") @Size(min = 8, message = "password must be at least 8 characters") String password
+    ) {}
+    
+    public record SyncCredentialsRequest(
+        @NotBlank(message = "email is required") @Email(message = "email must be valid") String email,
+        @NotBlank(message = "password is required") @Size(min = 8, message = "password must be at least 8 characters") String password
+    ) {}
 }
