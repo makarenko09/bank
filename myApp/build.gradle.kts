@@ -24,6 +24,7 @@ springBoot {
 
 repositories {
   mavenCentral()
+  maven { url = uri("https://repo.gradle.org/ui/native/releases") }
   // seed4j-needle-gradle-repositories
 }
 
@@ -53,6 +54,7 @@ dependencies {
   implementation(libs.spring.boot.starter.oauth2.client)
   implementation(libs.spring.boot.starter.oauth2.resource.server)
   implementation(libs.spring.boot.starter.actuator)
+  implementation(libs.keycloak.admin.client)
   // seed4j-needle-gradle-implementation-dependencies
   // seed4j-needle-gradle-compile-dependencies
   runtimeOnly(libs.postgresql)
