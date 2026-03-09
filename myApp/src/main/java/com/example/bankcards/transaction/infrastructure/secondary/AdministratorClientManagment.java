@@ -69,15 +69,12 @@ public class AdministratorClientManagment {
         // Затем синхронизируем с Keycloak
         try {
             keycloakAdminService.createUser(ownerName, email, password, true);
-            // Назначаем базовую роль USER
-            keycloakAdminService.getUserByUsername(ownerName)
-                .ifPresent(user -> {
-                    try {
-                        keycloakAdminService.assignRole(user.getId(), "ROLE_USER");
-                    } catch (Exception e) {
-                        // Роль может не существовать, это не критично
-                    }
-                });
+            
+            // Назначаем базовую роль USER - это обязательно для доступа к API
+            String keycloakUserId = keycloakAdminService.getUserByUsername(ownerName)
+                .orElseThrow(() -> new RuntimeException("User created in Keycloak but not found: " + ownerName))
+                .getId();
+            keycloakAdminService.assignRole(keycloakUserId, "ROLE_USER");
         } catch (Exception e) {
             // Откатываем создание в PostgreSQL если Keycloak failed
             repository.delete(clientAccount);
@@ -91,7 +88,7 @@ public class AdministratorClientManagment {
      * Синхронизировать существующего клиента с Keycloak.
      * <p>
      * Если клиент уже существует в PostgreSQL, но отсутствует в Keycloak,
-     * этот метод создаст соответствующую запись в Keycloak.
+     * этот метод создаст соответствующую запись в Keycloak и назначит роль ROLE_USER.
      *
      * @param ownerName имя владельца
      * @param email email пользователя
@@ -103,16 +100,36 @@ public class AdministratorClientManagment {
         Assert.field("ownerName", ownerName).notNull().notBlank();
 
         // Проверяем существование в PostgreSQL
-        ClientAccount clientAccount = getClientAccount(ownerName);
-        Assert.notNull("clientAccount", clientAccount);
+        ClientAccount clientAccount = repository.findByOwnerName(ownerName);
+        if (clientAccount == null) {
+            throw new IllegalArgumentException("Client not found in PostgreSQL: " + ownerName);
+        }
 
+        String keycloakUserId;
+        
         // Проверяем, существует ли уже в Keycloak
         if (keycloakAdminService.userExists(ownerName)) {
-            return false; // Уже существует
+            // Пользователь уже есть, просто назначаем роль ROLE_USER если её нет
+            keycloakUserId = keycloakAdminService.getUserByUsername(ownerName)
+                .orElseThrow(() -> new RuntimeException("User exists but not found: " + ownerName))
+                .getId();
+            
+            // Проверяем, есть ли уже роль ROLE_USER
+            var userRoles = keycloakAdminService.getUserRoles(keycloakUserId);
+            boolean hasUserRole = userRoles.stream().anyMatch(r -> "ROLE_USER".equals(r.getName()));
+            
+            if (!hasUserRole) {
+                keycloakAdminService.assignRole(keycloakUserId, "ROLE_USER");
+            }
+            return false; // Уже существовал
         }
 
         // Создаём в Keycloak
         keycloakAdminService.createUser(ownerName, email, password, true);
+        keycloakUserId = keycloakAdminService.getUserByUsername(ownerName)
+            .orElseThrow(() -> new RuntimeException("User created but not found: " + ownerName))
+            .getId();
+        keycloakAdminService.assignRole(keycloakUserId, "ROLE_USER");
         return true;
     }
 

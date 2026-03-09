@@ -35,7 +35,9 @@ public class UserCardManagement {
     public Collection<Card> getUserCards() {
         String username = AuthenticatedUser.username().get();
         ClientAccount account = clientAccountRepository.findByOwnerName(username);
-        Assert.notNull("account", account);
+        if (account == null) {
+            throw new IllegalArgumentException("User account not found for username: " + username + ". Please contact admin to create your account.");
+        }
         return cardRepository.findAllByClientId(account.getUserId());
     }
 
@@ -46,7 +48,9 @@ public class UserCardManagement {
     public Page<Card> getUserCardsPaginated(Pageable pageable) {
         String username = AuthenticatedUser.username().get();
         ClientAccount account = clientAccountRepository.findByOwnerName(username);
-        Assert.notNull("account", account);
+        if (account == null) {
+            throw new IllegalArgumentException("User account not found for username: " + username + ". Please contact admin to create your account.");
+        }
         List<Card> allCards = cardRepository.findAllByClientId(account.getUserId()).stream().toList();
         
         int start = (int) pageable.getOffset();
@@ -132,7 +136,9 @@ public class UserCardManagement {
     private void validateCardOwnership(Card card) {
         String username = AuthenticatedUser.username().get();
         ClientAccount account = clientAccountRepository.findByOwnerName(username);
-        Assert.notNull("account", account);
+        if (account == null) {
+            throw new IllegalArgumentException("User account not found for username: " + username + ". Please contact admin to create your account.");
+        }
 
         if (!card.getAccount().getUserId().equals(account.getUserId())) {
             throw new SecurityException("Card does not belong to the current user");

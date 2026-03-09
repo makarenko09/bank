@@ -19,9 +19,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.bankcards.transaction.domain.card.Card;
+import com.example.bankcards.shared.authentication.domain.Role;
 import com.example.bankcards.transaction.domain.card.dto.CardTransferRequest;
 import com.example.bankcards.transaction.domain.card.params.Money;
 import com.example.bankcards.transaction.infrastructure.secondary.UserCardManagement;
+
+import org.springframework.security.access.annotation.Secured;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -29,6 +32,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RestController
 @RequestMapping("/api/user/cards")
 @Tag(name = "User Card Management", description = "API для управления своими картами (USER only)")
+@Secured("ROLE_USER")
 public class UserCardController {
 
     private final UserCardManagement userCardManagement;
