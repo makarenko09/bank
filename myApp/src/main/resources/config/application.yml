@@ -63,7 +63,17 @@ spring:
       enabled: false
     restart:
       enabled: false
-  
+
+keycloak:
+  admin:
+    server-url: http://localhost:9081
+    admin-realm: master
+    realm: seed4j
+    client-id: admin-cli
+    username: admin
+    password: admin
+    grant-type: password
+
 logging:
   level:
     com:
