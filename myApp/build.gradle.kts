@@ -4,6 +4,9 @@ plugins {
   java
   alias(libs.plugins.spring.boot)
   // seed4j-needle-gradle-plugins
+  id("org.openapi.generator") version "7.12.0"
+  id("com.google.cloud.tools.jib") version "3.4.5"
+  id("de.materna.cms.jib.semantic-tags") version "4.0.2"
 }
 
 // seed4j-needle-gradle-properties
@@ -96,3 +99,17 @@ tasks.register<Test>("integrationTest") {
   }
   useJUnitPlatform()
 }
+
+jib {
+  from {
+    image = "eclipse-temurin:25-jre"
+  }
+  to {
+    image = "bankcards-app"
+    tags = setOf("this")
+  }
+  container {
+    mainClass = "com.example.bankcards.BankApp"
+  }
+}
+
