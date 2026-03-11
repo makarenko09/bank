@@ -360,6 +360,9 @@ docker compose logs -f postgresql
 | `src/main/docker/postgresql.yml` | Конфигурация PostgreSQL |
 | `src/main/docker/keycloak.yml` | Конфигурация Keycloak |
 
+3. Customizing the Login Page for Keycloak
+
+[Dev the custom theme](https://www.baeldung.com/keycloak-custom-login-page)
 ---
 
 <!-- seed4j-needle-localEnvironment -->
