@@ -109,6 +109,9 @@ jib {
     tags = setOf("this")
   }
   container {
+  environment = mapOf(
+            "SPRING_PROFILES_ACTIVE" to "local,docker"
+        )
     mainClass = "com.example.bankcards.BankApp"
   }
 }
