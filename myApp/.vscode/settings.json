@@ -1,4 +1,6 @@
 {
+  "java.autobuild.enabled": false,
+  "java.compile.nullAnalysis.mode": "disabled",
   "java.configuration.updateBuildConfiguration": "interactive",
   "a-file-icon-vscode.folderColor": "#8b9eb5",
   "java.debug.settings.hotCodeReplace": "auto",
