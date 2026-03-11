@@ -10,8 +10,4 @@ public final record Money(BigDecimal amount) {
         Assert.field("Money", amount).positive();
     }
 
-    // public BigDecimal getAmount() {
-    // return amount;
-    // }
-
 }

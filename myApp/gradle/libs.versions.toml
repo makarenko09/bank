@@ -5,6 +5,7 @@ bundles = {}
 	reflections = "0.10.2"
 	spring-boot = "4.0.2"
 	springdoc-openapi = "3.0.1"
+	keycloak = "26.0.7"
 
 	[plugins.spring-boot]
 		id = "org.springframework.boot"
@@ -118,3 +119,10 @@ bundles = {}
 	[libraries.commons-lang3]
 		name = "commons-lang3"
 		group = "org.apache.commons"
+
+	[libraries.keycloak-admin-client]
+		name = "keycloak-admin-client"
+		group = "org.keycloak"
+
+		[libraries.keycloak-admin-client.version]
+			ref = "keycloak"

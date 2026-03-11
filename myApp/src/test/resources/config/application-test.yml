@@ -21,3 +21,10 @@ logging:
   config: classpath:logback.xml
 server:
   port: 0
+keycloak:
+  admin:
+    server-url: http://localhost:9081
+    admin-realm: master
+    realm: seed4j
+    client-id: admin-cli
+    grant-type: client_credentials

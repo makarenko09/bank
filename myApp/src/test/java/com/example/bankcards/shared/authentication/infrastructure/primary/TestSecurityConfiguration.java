@@ -15,6 +15,12 @@ import org.springframework.security.oauth2.client.registration.InMemoryClientReg
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+
+import liquibase.integration.spring.SpringLiquibase;
+import com.example.bankcards.shared.authentication.infrastructure.primary.KeycloakAdminService;
 
 /**
  * This class allows you to run unit and integration tests without an IdP.
@@ -62,5 +68,20 @@ public class TestSecurityConfiguration {
   @Bean
   OAuth2AuthorizedClientService authorizedClientService(ClientRegistrationRepository clientRegistrationRepository) {
     return new InMemoryOAuth2AuthorizedClientService(clientRegistrationRepository);
+  }
+
+  @Bean
+  KeycloakAdminService keycloakAdminService() {
+    return mock(KeycloakAdminService.class);
+  }
+
+  @Bean
+  SpringLiquibase liquibase() {
+    return mock(SpringLiquibase.class);
+  }
+
+  @Bean
+  MockMvc mockMvc(WebApplicationContext context) {
+    return MockMvcBuilders.webAppContextSetup(context).build();
   }
 }

@@ -1,0 +1,3 @@
+keycloak:
+  admin:
+    server-url: http://keycloak:8080

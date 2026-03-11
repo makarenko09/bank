@@ -4,8 +4,8 @@ import java.util.UUID;
 
 public record CardId(UUID value) {
 
-    public static CardId generate() {
-        return new CardId(UUID.randomUUID());
+    public static UUID generate() {
+        return (UUID.randomUUID());
     }
 
     public static CardId fromString(String str) {

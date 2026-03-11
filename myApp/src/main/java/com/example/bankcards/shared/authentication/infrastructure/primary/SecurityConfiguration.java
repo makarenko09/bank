@@ -78,7 +78,8 @@ class SecurityConfiguration {
         .requestMatchers("/swagger-ui/**").permitAll()
         .requestMatchers("/swagger-ui.html").permitAll()
         .requestMatchers("/v3/api-docs/**").permitAll()
-
+        
+        .requestMatchers("/api/user/**").hasAuthority(Role.USER.key())
         
         .requestMatchers("/test/**").permitAll()
         .requestMatchers("/api/authenticate", "/api/auth-info").permitAll()

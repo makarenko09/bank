@@ -4,6 +4,9 @@ plugins {
   java
   alias(libs.plugins.spring.boot)
   // seed4j-needle-gradle-plugins
+  id("org.openapi.generator") version "7.12.0"
+  id("com.google.cloud.tools.jib") version "3.4.5"
+  id("de.materna.cms.jib.semantic-tags") version "4.0.2"
 }
 
 // seed4j-needle-gradle-properties
@@ -24,6 +27,7 @@ springBoot {
 
 repositories {
   mavenCentral()
+  maven { url = uri("https://repo.gradle.org/ui/native/releases") }
   // seed4j-needle-gradle-repositories
 }
 
@@ -53,6 +57,7 @@ dependencies {
   implementation(libs.spring.boot.starter.oauth2.client)
   implementation(libs.spring.boot.starter.oauth2.resource.server)
   implementation(libs.spring.boot.starter.actuator)
+  implementation(libs.keycloak.admin.client)
   // seed4j-needle-gradle-implementation-dependencies
   // seed4j-needle-gradle-compile-dependencies
   runtimeOnly(libs.postgresql)
@@ -94,3 +99,20 @@ tasks.register<Test>("integrationTest") {
   }
   useJUnitPlatform()
 }
+
+jib {
+  from {
+    image = "eclipse-temurin:25-jre"
+  }
+  to {
+    image = "bankcards-app"
+    tags = setOf("this")
+  }
+  container {
+  environment = mapOf(
+            "SPRING_PROFILES_ACTIVE" to "local,docker"
+        )
+    mainClass = "com.example.bankcards.BankApp"
+  }
+}
+

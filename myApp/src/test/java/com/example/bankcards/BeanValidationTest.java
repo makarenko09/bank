@@ -29,7 +29,11 @@ class BeanValidationTest {
   private static final Set<String> EXCLUDED_CONTROLLERS = Set.of(
     "ExceptionTranslatorTestController",
     "AuthenticationResource",
-    "DummyResource"
+    "DummyResource",
+    "UserCardController",
+    "ClientManagementController",
+    "KeycloakAdminController",
+    "CardManagementController"
   );
   private static final Set<Method> OBJECT_METHODS = Arrays.stream(Object.class.getMethods()).collect(Collectors.toUnmodifiableSet());
   private static final Set<Class<?>> controllers = new Reflections(

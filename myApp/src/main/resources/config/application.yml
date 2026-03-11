@@ -1,5 +1,5 @@
 spring:
-  profile:
+  profiles:
     active: local
   thymeleaf:
     cache: false
@@ -37,7 +37,7 @@ spring:
           fail_on_pagination_over_collection_fetch: true
           in_clause_parameter_padding: true
   liquibase:
-    enabled: true
+    enabled: false
     change-log: classpath:config/liquibase/master.xml
     url: jdbc:postgresql://localhost:5432/bank
     user: bank
@@ -60,9 +60,20 @@ spring:
             scope: openid,profile,email
   devtools:
     livereload:
-      enabled: true
+      enabled: false
     restart:
-      enabled: true
+      enabled: false
+
+keycloak:
+  admin:
+    server-url: http://localhost:9081
+    admin-realm: master
+    realm: seed4j
+    client-id: admin-cli
+    username: admin
+    password: admin
+    grant-type: password
+
 logging:
   level:
     com:

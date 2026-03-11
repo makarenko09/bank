@@ -4,6 +4,9 @@ logging:
       example:
         bankcards: DEBUG
 spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
   devtools:
     livereload:
       enabled: true
@@ -16,3 +19,6 @@ management:
     web:
       exposure:
         include: '*'
+application:
+     liquibase:
+      async: false

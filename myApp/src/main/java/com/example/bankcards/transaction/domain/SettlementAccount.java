@@ -4,16 +4,9 @@ import java.math.BigDecimal;
 
 import com.example.bankcards.shared.error.domain.Assert;
 
-class SettlementAccount {
-    private final BigDecimal valueOnSettlementAccount;
+public record SettlementAccount(BigDecimal amount) {
 
-    public SettlementAccount(BigDecimal valueOnSettlementAccount) {
-        Assert.field("Account", valueOnSettlementAccount).positive();
-        this.valueOnSettlementAccount = valueOnSettlementAccount;
+    public SettlementAccount {
+        Assert.field("SettlementAccount", amount).positive();
     }
-
-    public static SettlementAccount SettlementAccountBuilder() {
-        return new SettlementAccount(BigDecimal.ZERO);
-    }
-
 }
