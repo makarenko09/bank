@@ -130,22 +130,9 @@ java -jar build/libs/bankcards-0.0.1-SNAPSHOT.jar
 - **Swagger UI:** [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
 - **OpenAPI Spec:** `src/main/resources/openapi.yml`
 
-#### Генерация документации
-
-```bash
-# Валидация спецификации
-./gradlew validateOpenApi
-
-# Генерация Markdown документации
-./gradlew openApiGenerate
-
-# Просмотр результатов
-./gradlew viewOpenApiDocs
-```
-
 ### Руководства
 
-- [**Keycloak Integration**](KEYCLOAK_INTEGRATION.md) — полная документация по интеграции с Keycloak
+- [Keycloak Integration](KEYCLOAK_INTEGRATION.md) — полная документация по интеграции с Keycloak
 - [Hexagonal Architecture](documentation/hexagonal-architecture.md)
 - [Package Types](documentation/package-types.md)
 - [PostgreSQL](documentation/postgresql.md)
@@ -159,13 +146,13 @@ java -jar build/libs/bankcards-0.0.1-SNAPSHOT.jar
 
 ```bash
 # Юнит-тесты
-./gradlew test
+gradle test
 
 # Интеграционные тесты
-./gradlew integrationTest
+gradle integrationTest
 
 # Все тесты
-./gradlew check
+gradle check
 ```
 
 ### Покрытие тестами
@@ -237,6 +224,15 @@ password: bank
   </createTable>
 </changeSet>
 ```
+> [!WARNING]
+Не забудьте включить миграции в используемом файле профилирования для получения действующих DDL соответствующим сущностям проекта используя файл
+``` ~/src/main/resources/config/liquibase/changelog/migration/start_development_db.sql```.
+А также поправить настройки hibernate в вашем окружении используюго схему .YML:
+``` spring:```
+   ```  jpa:```
+     ```    hibernate:```
+       ```      ddl-auto: <option>```
+
 
 ---
 
@@ -283,66 +279,6 @@ password: bank
 
 ---
 
-## 🐳 Docker Compose
-
-### Вариант 1: Запуск через Docker (образ via Jib)
-
-```bash
-# 1. Сборка Docker образа через Jib
-gradle jibDockerBuild
-docker compose -f docker-compose-full.yml up -d
-```
-
-### Управление сервисами
-
-```bash
-# Проверка статуса
-docker compose ps
-
-# Остановка
-docker compose down
-
-# Остановка с очисткой данных
-docker compose down -v
-
-# Просмотр логов
-docker compose logs -f bankapp
-docker compose logs -f keycloak
-docker compose logs -f postgresql
-```
-
-### Структура Docker Compose файлов
-
-| Файл | Описание |
-|------|----------|
-| `docker-compose.yml` | Базовая конфигурация (PostgreSQL + Keycloak) |
-| `docker-compose.full.yml` | Полное развёртывание (включает bank.yml) |
-| `docker-compose-bank.yml` | Генерируется через Gradle (include всех сервисов) |
-| `src/main/docker/bank.yml` | Конфигурация BankApp (образ via Jib) |
-| `src/main/docker/postgresql.yml` | Конфигурация PostgreSQL |
-| `src/main/docker/keycloak.yml` | Конфигурация Keycloak |
-
----
-
-## 📈 Оценка соответствия
-
-| Критерий | Статус |
-|----------|--------|
-| ✅ Создание и управление картами | Выполнено |
-| ✅ Просмотр карт (поиск + пагинация) | Выполнено |
-| ✅ Переводы между своими картами | Выполнено |
-| ✅ Аутентификация (Spring Security + JWT) | Выполнено |
-| ✅ Роли (ADMIN, USER) | Выполнено |
-| ✅ Валидация и обработка ошибок | Выполнено |
-| ✅ Шифрование данных | Выполнено |
-| ✅ Маскирование номеров карт | Выполнено |
-| ✅ PostgreSQL + Liquibase | Выполнено |
-| ✅ Swagger UI / OpenAPI | Выполнено |
-| ✅ Docker Compose | Выполнено |
-| ✅ Юнит-тесты | Выполнено |
-
----
-
 ## ❓ FAQ
 
 **Q: Как получить доступ к Swagger UI?**
@@ -360,20 +296,69 @@ curl -X POST http://localhost:9081/admin/realms/seed4j/users \
   -d '{"username": "user", "email": "user@example.com", "enabled": true}'
 ```
 
-**Q: Как обновить OpenAPI спецификацию?**
-
-A: При изменении API обновите `src/main/resources/openapi.yml` и выполните:
-
-```bash
-./gradlew validateOpenApi
-./gradlew openApiGenerate
-```
-
 ---
 
 ## 📝 License
 
 REST_BANK — PaatoM Team
+
+---
+
+## 🌐 Futures steps on stage development. Section Supplements:
+
+1. Документация/API Документация/Генерация документации & FAQ
+
+* **Q: Как обновить OpenAPI спецификацию?**
+
+A: При изменении API обновите `src/main/resources/openapi.yml` и выполните:
+
+```bash
+# Валидация спецификации
+./gradlew validateOpenApi
+
+# Генерация Markdown документации
+./gradlew openApiGenerate
+
+# Просмотр результатов
+./gradlew viewOpenApiDocs
+```
+
+2. 🐳 Docker Compose: 
+* **Запуск через Docker (образ via Jib)**
+
+```bash
+# 1. Сборка Docker образа через Jib
+gradle jibDockerBuild
+docker compose -f docker-compose-full.yml up -d
+```
+
+* **Управление сервисами**
+
+```bash
+# Проверка статуса
+docker compose ps
+
+# Остановка
+docker compose down
+
+# Остановка с очисткой данных
+docker compose down -v
+
+# Просмотр логов
+docker compose logs -f bankapp
+docker compose logs -f keycloak
+docker compose logs -f postgresql
+```
+
+* **Структура Docker Compose файлов**
+
+| Файл | Описание |
+|------|----------|
+| `docker-compose.yml` | Базовая конфигурация (PostgreSQL + Keycloak) |
+| `docker-compose.full.yml` | Полное развёртывание (включает bank.yml) |
+| `src/main/docker/bank.yml` | Конфигурация BankApp (образ via Jib) |
+| `src/main/docker/postgresql.yml` | Конфигурация PostgreSQL |
+| `src/main/docker/keycloak.yml` | Конфигурация Keycloak |
 
 ---
 
