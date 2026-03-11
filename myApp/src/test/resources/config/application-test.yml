@@ -8,3 +8,23 @@ spring:
     username: bank
   liquibase:
     contexts: test
+  main:
+    banner-mode: 'off'
+    allow-bean-definition-overriding: true
+  security:
+    oauth2:
+      client:
+        provider:
+          oidc:
+            issuer-uri: http://DO_NOT_CALL:9080/realms/seed4j
+logging:
+  config: classpath:logback.xml
+server:
+  port: 0
+keycloak:
+  admin:
+    server-url: http://localhost:9081
+    admin-realm: master
+    realm: seed4j
+    client-id: admin-cli
+    grant-type: client_credentials

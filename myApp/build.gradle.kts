@@ -2,7 +2,11 @@
 
 plugins {
   java
+  alias(libs.plugins.spring.boot)
   // seed4j-needle-gradle-plugins
+  id("org.openapi.generator") version "7.12.0"
+  id("com.google.cloud.tools.jib") version "3.4.5"
+  id("de.materna.cms.jib.semantic-tags") version "4.0.2"
 }
 
 // seed4j-needle-gradle-properties
@@ -13,10 +17,17 @@ java {
   }
 }
 
+defaultTasks("bootRun")
+
+springBoot {
+  mainClass = "com.example.bankcards.BankApp"
+}
+
 // seed4j-needle-gradle-plugins-configurations
 
 repositories {
   mavenCentral()
+  maven { url = uri("https://repo.gradle.org/ui/native/releases") }
   // seed4j-needle-gradle-repositories
 }
 
@@ -30,18 +41,34 @@ val profiles = (project.findProperty("profiles") as String? ?: "")
 // seed4j-needle-profile-activation
 
 dependencies {
+  implementation(platform(libs.spring.boot.dependencies))
+  implementation(libs.spring.boot.starter)
+  implementation(libs.spring.boot.configuration.processor)
+  implementation(libs.commons.lang3)
   implementation(libs.hikariCP)
   implementation(libs.spring.boot.starter.data.jpa)
   implementation(libs.spring.boot.starter.liquibase)
+  implementation(libs.spring.boot.starter.validation)
+  implementation(libs.spring.boot.starter.webmvc)
+  implementation(libs.springdoc.openapi.starter.webmvc.ui)
+  implementation(libs.springdoc.openapi.starter.webmvc.api)
+  implementation(libs.spring.boot.starter.security)
+  implementation(libs.spring.boot.starter.restclient)
+  implementation(libs.spring.boot.starter.oauth2.client)
+  implementation(libs.spring.boot.starter.oauth2.resource.server)
+  implementation(libs.spring.boot.starter.actuator)
+  implementation(libs.keycloak.admin.client)
   // seed4j-needle-gradle-implementation-dependencies
   // seed4j-needle-gradle-compile-dependencies
   runtimeOnly(libs.postgresql)
+  runtimeOnly(libs.spring.boot.devtools)
   // seed4j-needle-gradle-runtime-dependencies
-  testImplementation(libs.junit.engine)
-  testImplementation(libs.junit.params)
-  testImplementation(libs.assertj)
-  testImplementation(libs.mockito)
+  testImplementation(libs.spring.boot.starter.test)
   testImplementation(libs.testcontainers.testcontainers.postgresql)
+  testImplementation(libs.reflections)
+  testImplementation(libs.spring.boot.starter.webmvc.test)
+  testImplementation(libs.spring.boot.starter.security.test)
+
   // seed4j-needle-gradle-test-dependencies
 }
 
@@ -72,3 +99,20 @@ tasks.register<Test>("integrationTest") {
   }
   useJUnitPlatform()
 }
+
+jib {
+  from {
+    image = "eclipse-temurin:25-jre"
+  }
+  to {
+    image = "bankcards-app"
+    tags = setOf("this")
+  }
+  container {
+  environment = mapOf(
+            "SPRING_PROFILES_ACTIVE" to "local,docker"
+        )
+    mainClass = "com.example.bankcards.BankApp"
+  }
+}
+

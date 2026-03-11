@@ -1,0 +1,14 @@
+{
+  "module" : "application-service-hexagonal-architecture-documentation",
+  "date" : "2026-02-19T18:15:05.736481898Z",
+  "properties" : {
+    "packageName" : "com.example.bankcards",
+    "projectName" : "PaatoM Bank_REST Repository",
+    "baseName" : "bank",
+    "nodePackageManager" : "npm",
+    "endOfLine" : "lf",
+    "indentSize" : 2,
+    "springConfigurationFormat" : "yaml",
+    "serverPort" : 8080
+  }
+}

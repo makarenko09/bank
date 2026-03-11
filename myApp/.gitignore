@@ -67,7 +67,25 @@ out/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+!.vscode/roo-code-provider.json
 *.code-workspace
+
+######################
+# Roo Code & Qwen CLI
+######################
+# Чувствительные данные аутентификации
+.qwen/oauth_creds.json
+.qwen/installation_id
+.qwen/debug/
+.qwen/ide/
+.qwen/projects/
+.qwen/tmp/
+
+# Кэш Roo Code (можно пересоздать)
+.vscode-server/data/User/globalStorage/rooveterinaryinc.roo-cline/cache/
+
+# Резервные копии Roo Code
+.vscode-server/data/User/globalStorage/rooveterinaryinc.roo-cline/backup_*/
 
 ######################
 # Maven

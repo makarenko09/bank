@@ -1,0 +1,16 @@
+{
+  "module" : "spring-boot-devtools",
+  "date" : "2026-02-24T14:17:17.893954642Z",
+  "properties" : {
+    "packageName" : "com.example.bankcards",
+    "projectName" : "PaatoM Bank_REST Repository",
+    "baseName" : "bank",
+    "nodePackageManager" : "npm",
+    "endOfLine" : "lf",
+    "indentSize" : 2,
+    "springConfigurationFormat" : "yaml",
+    "serverPort" : 8080,
+    "keycloakClientScopeName" : "account-access",
+    "keycloakRealmName" : ""
+  }
+}

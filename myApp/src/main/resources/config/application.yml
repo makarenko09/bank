@@ -1,10 +1,14 @@
 spring:
+  profiles:
+    active: local
+  thymeleaf:
+    cache: false
   datasource:
     driver-class-name: org.postgresql.Driver
     hikari:
       auto-commit: false
       poolName: Hikari
-    password: ''
+    password: ""
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:postgresql://localhost:5432/bank
     username: bank
@@ -33,4 +37,81 @@ spring:
           fail_on_pagination_over_collection_fetch: true
           in_clause_parameter_padding: true
   liquibase:
+    enabled: false
     change-log: classpath:config/liquibase/master.xml
+    url: jdbc:postgresql://localhost:5432/bank
+    user: bank
+    password:
+
+  application:
+    name: bank
+  jackson:
+    default-property-inclusion: non_absent
+  security:
+    oauth2:
+      client:
+        provider:
+          oidc:
+            issuer-uri: http://localhost:9081/realms/seed4j
+        registration:
+          oidc:
+            client-id: web_app
+            client-secret: web_app
+            scope: openid,profile,email
+  devtools:
+    livereload:
+      enabled: false
+    restart:
+      enabled: false
+
+keycloak:
+  admin:
+    server-url: http://localhost:9081
+    admin-realm: master
+    realm: seed4j
+    client-id: admin-cli
+    username: admin
+    password: admin
+    grant-type: password
+
+logging:
+  level:
+    com:
+      example:
+        bankcards: INFO
+server:
+  port: 8080
+springdoc:
+  enable-native-support: true
+  swagger-ui:
+    operationsSorter: alpha
+    tagsSorter: alpha
+    tryItOutEnabled: true
+application:
+  security:
+    oauth2:
+      audience: account,api://default
+management:
+  endpoint:
+    health:
+      access: read-only
+      probes:
+        enabled: true
+      show-details: always
+  endpoints:
+    access:
+      default: none
+    jmx:
+      exposure:
+        exclude: '*'
+    web:
+      base-path: /management
+      exposure:
+        include:
+        - configprops
+        - env
+        - health
+        - info
+        - logfile
+        - loggers
+        - threaddump

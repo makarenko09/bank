@@ -1,0 +1,24 @@
+logging:
+  level:
+    com:
+      example:
+        bankcards: DEBUG
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+management:
+  endpoints:
+    access:
+      default: unrestricted
+    web:
+      exposure:
+        include: '*'
+application:
+     liquibase:
+      async: false

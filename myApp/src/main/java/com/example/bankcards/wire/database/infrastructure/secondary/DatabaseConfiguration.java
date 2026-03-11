@@ -2,9 +2,13 @@ package com.example.bankcards.wire.database.infrastructure.secondary;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+@Async("taskExecutor")
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = { "com.example.bankcards" }, enableDefaultTransactions = false)
-class DatabaseConfiguration {}
+class DatabaseConfiguration {
+
+}
